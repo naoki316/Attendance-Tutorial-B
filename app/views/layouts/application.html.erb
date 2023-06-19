@@ -1,31 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= full_title(yield(:title))%> | AttendanceApp</title>
-    <%= csrf_meta_tags %>
+    <title><%= full_title(yield(:title))%> | AttendanceApp</title> <%# ページタイトルとAppタイトルがセットで表示される%>
+    <%= csrf_meta_tags %> <%# CSRFは、悪意のあるユーザーが不正なリクエストを送信する攻撃を防ぐためのセキュリティ対策です。%>
     <%= stylesheet_link_tag    'application', media: 'all','data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    
-    <!--[if lt IE 9]>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
-      </script>
-    <![endif]-->
-    <%# JavaScriptのコードを利用してこの問題を回避 %>
-    
+    <%= render 'layouts/shim' %> <%# このコードはapp/views/layouts/_shim.html.erbというファイルを探して、その内容を評価して結果をビューに挿入します。%>
   </head>
 
   <body>
-    <header class="navbar navbar-fixed-top navbar-inverse">
-      <div class="container">
-        <%= link_to "Attendance App", "#" , id:"logo" %>
-        <nuv>
-          <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to "Top", "#" %></li>
-            <li><%= link_to "Log in", "#" %></li>
-          </ul>
-        </nuv>
-      </div>
-    </header>
+    <%= render 'layouts/header'%> <%# パーシャルファイルを使って呼び出している。%>
     <div class="container">
       <%= yield %>
     </div>
