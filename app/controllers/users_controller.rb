@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params) # [user_params]内にはハッシュが格納されている。new.html.erbのフォーム内容（"user"=>{"name"=>"", "email"=>"", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}）
     if @user.save
+      log_in @user #保存成功後、ログインします。
       flash[:success] = "新規登録に成功しました。"
       redirect_to @user # ここの@userはユーザー詳細ページへ遷移する。
     else
