@@ -7,5 +7,11 @@ Rails.application.routes.draw do
   post   '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   
-  resources :users # RESTfulなUsersリソースで必要となる全てのアクションも利用できる。
+  resources :users do # RESTfulなUsersリソースで必要となる全てのアクションも利用できる。
+   member do
+     get 'edit_basic_info'
+     patch 'update_basic_info'
+   end
+  end
+  
 end
