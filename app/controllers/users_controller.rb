@@ -6,8 +6,15 @@ class UsersController < ApplicationController
   before_action :set_one_month, only: :show
 
   def index
-    @users = User.paginate(page: params[:page])
+    @users = User.all
+  
+    if params[:search].present?
+      @users = @users.where("name LIKE ?", "%#{params[:search]}%")
+    end
+  
+    @users = @users.paginate(page: params[:page], per_page: 30)
   end
+
 
   def show
     @first_day = Date.current.beginning_of_month
@@ -49,7 +56,9 @@ class UsersController < ApplicationController
   end
   
   def edit_basic_info
+    @user = User.find(params[:id])
   end
+
   
   def update_basic_info
     if @user.update_attributes(basic_info_params)
