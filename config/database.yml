@@ -1,8 +1,9 @@
 production:
-  <<: *default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  database: your_database_name
-  username: your_database_username
-  password: your_database_password
+  database: <%= ENV['DATABASE_URL'].split('/').last %>
+  username: <%= ENV['DATABASE_URL'].split('://')[1].split(':')[0] %>
+  password: <%= ENV['DATABASE_URL'].split('://')[1].split(':')[1].split('@')[0] %>
+  host: <%= ENV['DATABASE_URL'].split('@').last.split(':').first %>
+  port: <%= ENV['DATABASE_URL'].split('@').last.split(':').last.split('/').first %>
